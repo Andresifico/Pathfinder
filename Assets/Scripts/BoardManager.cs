@@ -27,7 +27,7 @@ public class BoardManager : MonoBehaviour
 
     public void CellMouseClick(int x, int y)
     {
-        List<Cell> path = PathManager.Instance.FindPath(grid, 0, 0, x, y);
+        List<Cell> path = PathManager.Instance.FindPath(grid, (int)player.GetPosition.x, (int)player.GetPosition.y, x, y);
 
         player.SetPath(path);
     }
