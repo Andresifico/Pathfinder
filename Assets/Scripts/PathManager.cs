@@ -35,8 +35,8 @@ public class PathManager : MonoBehaviour
             {
                
                 Cell pathNode = grid.GetGridObject(x, y);
-                if (pathNode.isWalkable)
-                    pathNode.SetColor(Color.blue);
+                //if (pathNode.isWalkable)
+                    //pathNode.SetColor(Color.blue);
                 pathNode.gCost = int.MaxValue;
                 pathNode.CalculateFCost();
                 pathNode.pastCell = null;
@@ -53,7 +53,7 @@ public class PathManager : MonoBehaviour
             if (currentNode == endCell)
             {
                 // Reached final node
-                Debug.Log("Reach the end");
+                // Debug.Log("Reach the end");
                 return CalculatePath(endCell);
             }
 
@@ -85,7 +85,7 @@ public class PathManager : MonoBehaviour
                 //PathfindingDebugStepVisual.Instance.TakeSnapshot(grid, currentNode, openList, closedList);
             }
         }
-        Debug.Log("Did not reach the end");
+        //xDebug.Log("Did not reach the end");
         return null;
     }
 
@@ -96,15 +96,19 @@ public class PathManager : MonoBehaviour
         Cell currentNode = endCell;
         while (currentNode.pastCell != null)
         {
-            path.Add(currentNode.pastCell);
-            currentNode = currentNode.pastCell;
+            //if(currentNode.pastCell.pastCell != null)
+            //{ 
+                path.Add(currentNode.pastCell);
+                currentNode = currentNode.pastCell;
+           // }
+            
         }
         path.Reverse();
 
         foreach(Cell c in path)
         {
-            c.SetColor(Color.green);
-            Debug.Log(c.ToString());
+            //c.SetColor(Color.blue);
+            //Debug.Log(c.ToString());
         }
         return path;
     }
@@ -117,19 +121,11 @@ public class PathManager : MonoBehaviour
         {
             // Left
             neighbourList.Add(GetNode(currentNode.x - 1, currentNode.y));
-            // Left Down
-            if (currentNode.y - 1 >= 0) neighbourList.Add(GetNode(currentNode.x - 1, currentNode.y - 1));
-            // Left Up
-            if (currentNode.y + 1 < grid.GetHeight()) neighbourList.Add(GetNode(currentNode.x - 1, currentNode.y + 1));
         }
         if (currentNode.x + 1 < grid.GetWidth())
         {
             // Right
             neighbourList.Add(GetNode(currentNode.x + 1, currentNode.y));
-            // Right Down
-            if (currentNode.y - 1 >= 0) neighbourList.Add(GetNode(currentNode.x + 1, currentNode.y - 1));
-            // Right Up
-            if (currentNode.y + 1 < grid.GetHeight()) neighbourList.Add(GetNode(currentNode.x + 1, currentNode.y + 1));
         }
         // Down
         if (currentNode.y - 1 >= 0) neighbourList.Add(GetNode(currentNode.x, currentNode.y - 1));

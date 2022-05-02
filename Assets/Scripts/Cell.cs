@@ -20,15 +20,9 @@ public class Cell : MonoBehaviour
         this.x = x;
         this.y = y;
         this.isWalkable = isWalkable;
-        SetText(x + "," + y);
     }
 
     public Vector2 Position => transform.position;
-
-    public void SetText(string text)
-    {
-        textMeshPro.text = text;
-    }
 
     public void SetColor(Color color)
     {
@@ -37,7 +31,6 @@ public class Cell : MonoBehaviour
 
     private void OnMouseDown()
     {
-        
         if (Input.GetMouseButton(0))
         {
             grid.CellMouseClick(this);

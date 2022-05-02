@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+
 // ref: https://drive.google.com/file/d/1WiF2LwM-6WvEnas9vw32YrYPly9K0Qrv/view
 
 public class Player : MonoBehaviour
@@ -9,6 +10,7 @@ public class Player : MonoBehaviour
     List<Cell> path;
     [SerializeField]
     private float moveSpeed = 2f;
+    
 
     public Vector2 GetPosition => transform.position;
 
@@ -20,12 +22,20 @@ public class Player : MonoBehaviour
     void Update()
     {
         Move();
+        
+        if ((GetPosition.y == MainMenu.N-1) && (GetPosition.x == MainMenu.N-1))
+        {
+            //Debug.Log(MainMenu.N);
+            BoardManager.Instance.NextLevel();
+            ResetPosition();
+        }
     }
 
     public void SetPath(List<Cell> path)
     {
         //ResetPosition();
         waypointIndex = 0;
+
         this.path = path;
     }
 
@@ -34,6 +44,11 @@ public class Player : MonoBehaviour
         transform.position = new Vector2(0, 0);
     }
 
+
+    public void Hide()
+    {
+        transform.position = new Vector2(1000, 1000);
+    }
     private void Move()
     {
         // If player didn't reach last waypoint it can move
@@ -58,5 +73,5 @@ public class Player : MonoBehaviour
                 waypointIndex += 1;
             }
         }
-    }
+        }
 }
